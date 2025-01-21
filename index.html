@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Lottie</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+        integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.4.5/jscolor.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <div>
+            <input type="color" class="color-picker-player" id="color-player" value="#2b2929" title="BG player"  /> 
+        </div>
+        
+        <div class="container1">
+            <div class="res-select">
+                <button onclick="FormatHor()"><span class="material-symbols-outlined">
+                    crop_16_9
+                    </span></button>
+                <button onclick="FormatCar()"><span class="material-symbols-outlined">
+                    crop_square
+                    </span></button>
+                <button onclick="FormatVer()"><span class="material-symbols-outlined">
+                    crop_9_16
+                    </span></button>
+                <div class="res-select">
+                    <button onclick="ToggleGrid()"><span class="material-symbols-outlined">
+                        grid_3x3
+                        </span></button>
+                    <button onclick="ToggleHandle()"><span class="material-symbols-outlined">
+                        select
+                        </span></button>
+                </div>
+
+            </div>
+            <div class="player" id="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+                <p>Déposez un lottie ici</p>
+                <div class="grid">
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                    <div class="grid-box"></div>
+                </div>
+                <div  id="animation-container"></div>
+            </div>
+        </div>
+        
+       
+
+        <div id="animation-controls">
+            <button onclick="goFreezeFrame()"><span class="material-symbols-outlined">
+                preview
+                </span></button>
+            <button onclick="togglePlay()"><span class="material-symbols-outlined playpause">
+                play_arrow
+                </span></button>
+            <input type="range" id="animation-slider" min="0" max="100" value="0" step="1" onchange="updateFrame()"
+                disabled>
+                <span id="current-frame">0</span>
+        </div>
+
+        <div class="container">
+            Palette
+            <div class="ControlPalette">
+                <div class="SelectColor">
+                    <div>
+                        <input type="color" class="color-picker" id="color-picker1" value="#ff0000" title="BG"  />
+                        <div class="SelectOpacity">
+                            <label for="color-opacity1">Opacité</label>
+                            <input type="range" min="1" max="100" value="100" id="color-opacity1" class="color-opacity-slider" checked>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="color" class="color-picker" id="color-picker2" value="#00ff00" title="Text1"/>
+                        <div  class="SelectOpacity">
+                            <label for="color-opacity2">Opacité</label>
+                            <input type="range" min="1" max="100" value="100" id="color-opacity2" class="color-opacity-slider" checked>
+        
+                        </div>
+                    </div>
+                    <div>
+                        <input type="color" class="color-picker" id="color-picker3" value="#0000ff" title="Text2"/>
+                        <div  class="SelectOpacity">
+                            <label for="color-opacity3">Opacité</label>
+                            <input type="range" min="1" max="100" value="100" id="color-opacity3" class="color-opacity-slider" checked>
+        
+                        </div>
+                    </div>
+                    <div>
+                        <input type="color" class="color-picker" id="color-picker4" value="#ffff00" title="Elem1"/>
+                        <div  class="SelectOpacity">
+                            <label for="color-opacity4">Opacité</label>
+                            <input type="range" min="1" max="100" value="100" id="color-opacity4" class="color-opacity-slider" checked>
+        
+                        </div>
+                    </div>
+                    <div>
+                        <input type="color" class="color-picker" id="color-picker5" value="#ff00ff" title="Elem2"/>
+                        <div  class="SelectOpacity">
+                            <label for="color-opacity5">Opacité</label>
+                            <input type="range" min="1" max="100" value="100" id="color-opacity5" class="color-opacity-slider" checked>
+        
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            Positions - Scale
+            <div class="ControlPos">
+           
+                <input type="text" placeholder="Panel X" id="panelX" value="" />
+                
+              
+                <input type="text" placeholder="Panel Y" id="panelY" value="" />
+                
+            
+                <input type="text" placeholder="Scale"  id="scale" value="" />
+            </div>
+
+            <div id="marge">Marges</div>
+            <div class="ControlMarge">
+                <input type="text" placeholder="Marge W" id="marge_w" value="" />   
+                <input type="text" placeholder="Marge H" id="marge_h" value="" />  
+            </div>
+
+            <div id="spacing">Spacing</div>
+            <div class="ControlSpacing">
+                <input type="text" placeholder="Text Spacing" id="linespacing" value="" />   
+            </div>
+
+        </div>
+        
+        
+        <div class="ControlText">
+            Textes
+            <div class="Alignment">
+                <button onclick="AlignLeft()"><span class="material-symbols-outlined">
+                    format_align_left
+                    </span></button>
+                <button onclick="AlignCenter()"><span class="material-symbols-outlined">
+                    format_align_center
+                    </span></button>
+                <button onclick="AlignRight()"><span class="material-symbols-outlined">
+                    format_align_right
+                    </span></button>
+            </div>
+            <div>   <textarea id="text-input" placeholder="Text 1" rows="1"></textarea>  <input type="text" placeholder="Size" id="font-size-input-1" class="font-size-input" min="1" value="">   <input type="color" class="color-picker-text" id="color-picker-text1" value="#000000" title="ColorText1" disabled/>    <button id="TextPalette1"><span class="material-symbols-outlined">close</span></button></div>
+            <div>   <textarea id="text-input-2" class="text-input" placeholder="Text 2" rows="1"></textarea>    <input  type="text" placeholder="Size" id="font-size-input-2" class="font-size-input" min="1" value=""> <input type="color" class="color-picker-text" id="color-picker-text2" value="#000000" title="ColorText2" disabled/> <button id="TextPalette2"><span class="material-symbols-outlined">close</span></button></div>
+           
+            
+        </div>
+
+
+
+
+
+
+
+
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+var dropArea = document.getElementById('drop-area');
+var textArea1 = document.getElementById('text-input');
+var textArea2 = document.getElementById('text-input-2');
+var fontSizeInput1 = document.getElementById('font-size-input-1');
+var fontSizeInput2 = document.getElementById('font-size-input-2');
+var spanElement = document.querySelector('.playpause');
+const animationDestroyedEvent = new CustomEvent("animationDestroyed");
+
+var ColorPlayer = document.getElementById('color-player');
+
+ColorPlayer.addEventListener('input', function() {
+    var newColor = ColorPlayer.value;
+
+    document.body.style.backgroundColor = newColor;
+});
+
+var inputFields = ["panelX", "panelY", "scale", "marge_w", "marge_h", "linespacing", "font-size-input-1", "font-size-input-2"];
+
+inputFields.forEach(function (field) {
+    var inputElement = document.getElementById(field);
+
+    inputElement.addEventListener("focus", function () {
+        inputElement.setAttribute("autocomplete", "off");
+    });
+
+    inputElement.addEventListener("keydown", function (event) {
+        handleArrowKeyInput(event, field);
+    });
+
+    inputElement.addEventListener("input", updatePanel);
+});
+
+function handleArrowKeyInput(event, inputId) {
+    var step = event.shiftKey ? 10 : 1;
+
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+
+        var direction = event.key === "ArrowUp" ? 1 : -1;
+        updateInputValue(inputId, step * direction);
+    }
+}
+
+
+
+
+
+function updateInputValue(inputId, step) {
+    var inputElement = document.getElementById(inputId);
+    var currentValue = parseFloat(inputElement.value) || 0;
+    var newValue = currentValue + step;
+    inputElement.value = newValue;
+    if(inputId == "panelX" || inputId == "panelY" || inputId == "scale" || inputId == "marge_w" || inputId == "marge_h" || inputId == "linespacing"){
+        updatePanel();
+    }else{
+        updateSize();
+    }
+    
+}
+
+function adjustTextareaHeight() {
+    textArea1.style.height = 'auto'; 
+    textArea1.style.height = (textArea1.scrollHeight) + 'px';
+    textArea2.style.height = 'auto'; 
+    textArea2.style.height = (textArea2.scrollHeight) + 'px'; 
+    }
+
+
+    fontSizeInput1 .addEventListener("input", function () {
+        updateSize();
+    });
+
+    fontSizeInput2 .addEventListener("input", function () {
+        updateSize();
+    });
+
+    textArea1 .addEventListener("input", function () {
+        updateText();
+        adjustTextareaHeight();
+    });
+
+    textArea2 .addEventListener("input", function () {
+        updateText();
+        adjustTextareaHeight();
+    });
+
+    textArea1 .addEventListener("change", function () {
+        adjustTextareaHeight();
+    });
+
+    textArea2 .addEventListener("change", function () {
+        adjustTextareaHeight();
+    });
+
+dropArea.addEventListener('dragenter', function (event) {
+    event.preventDefault();
+    dropArea.classList.add('dragover');
+    dropArea.querySelector('p').style.display = 'none';
+});
+
+dropArea.addEventListener('dragleave', function () {
+    dropArea.classList.remove('dragover');
+});
+
+dropArea.addEventListener('drop', function () {
+    dropArea.classList.remove('dragover');
+    document.querySelector('.playpause').textContent = 'play_arrow';
+});
+
+var selectedColors = ["#000000", "#000000", "#000000", "#000000", "#000000"];
+var animData;
+var animationInstance;
+var isPaused = false;
+var currentFrame = 0;
+
+
+
+function handleDrop(event) {
+    event.preventDefault();
+
+    var files = event.dataTransfer.files;
+    if (files.length > 0) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            animData = JSON.parse(e.target.result);
+            playLottieAnimation(animData);
+            applyColorsFromJSON();
+            applyTextFromJSON();
+            applySizeFromJSON();
+            DetectAlign();
+            DetectFormat();
+            DetectColorText();
+            FreezeFrame();
+            DesacColor();
+            DesacOpacity();
+            updateGradients();
+        };
+        reader.readAsText(files[0]);
+        document.getElementById("marge").style.display = "none";
+        document.getElementById("marge_w").style.display = "none";
+        document.getElementById("marge_h").style.display = "none";
+        document.getElementById("linespacing").style.display = "none";
+        document.getElementById("spacing").style.display = "none";
+        for (var i = 1; i <= 5; i++) {
+            var colorPicker = document.getElementById("color-picker" + i);
+            colorPicker.style.border = '';
+        }
+    }
+}
+
+function handleDragOver(event) {
+    event.preventDefault();
+}
+
+var textareas = document.querySelectorAll('.ControlText textarea');
+
+function AlignRight() {
+    Align(1); 
+    DetectAlign();
+    textareas.forEach(function (textarea) {
+    textarea.style.textAlign = 'right'; 
+});
+}
+
+function AlignCenter() {
+    Align(2); 
+    DetectAlign();
+    textareas.forEach(function (textarea) {
+    textarea.style.textAlign = 'center'; 
+});
+}
+
+function AlignLeft() {
+    Align(0); 
+    DetectAlign();
+    textareas.forEach(function (textarea) {
+    textarea.style.textAlign = 'left'; 
+});
+}
+
+function FormatHor() {
+    Format(0); 
+    DetectFormat()
+}
+
+function FormatCar() {
+    Format(1); 
+    DetectFormat()
+}
+
+function FormatVer() {
+    Format(2); 
+    DetectFormat()
+}
+
+function ToggleGrid() {
+    var fourthButton = document.querySelectorAll('.res-select button')[3];
+    grid = document.querySelector('.grid');
+    if(grid.style.display == "flex"){
+        fourthButton.classList.remove('ButtonOn');
+        grid.style.display = "none"; 
+    }else{
+        fourthButton.classList.add('ButtonOn');
+        grid.style.display = "flex";
+    }
+
+}
+
+function DesacColor() {
+    if (animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+            if (layer.nm === "palette" && layer.ef) {
+                for (var i = 1; i <= 5; i++) {
+                    var colorPicker = document.getElementById("color-picker" + i);
+                    colorPicker.disabled = true;
+
+                    layer.ef.forEach(function (effect) {
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text"))) {
+                            colorPicker.disabled = false;
+                            return; 
+                        }
+                    });
+                }
+            }
+        });
+    }
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "palette" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                for (var i = 1; i <= 5; i++) {
+                    var colorPicker = document.getElementById("color-picker" + i);
+                    colorPicker.disabled = true;
+
+                    layer.ef.forEach(function (effect) {
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text"))) {
+                            colorPicker.disabled = false;
+                            return; 
+                        }
+                    });
+                }
+            }
+            });
+
+      
+        }
+    });
+}
+}
+
+function DesacOpacity() {
+    if (animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+            if (layer.nm === "palette" && layer.ef) {
+                for (var i = 1; i <= 5; i++) {
+                    var colorPicker = document.getElementById("color-opacity" + i);
+                    colorPicker.disabled = true;
+
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "color_opacity" + i) {
+                            colorPicker.disabled = false;
+                            return; 
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "palette" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                for (var i = 1; i <= 5; i++) {
+                    var colorPicker = document.getElementById("color-opacity" + i);
+                    colorPicker.disabled = true;
+
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "color_opacity" + i) {
+                            colorPicker.disabled = false;
+                            return; 
+                        }
+                    });
+                }
+            }
+            });
+
+      
+        }
+    });
+}
+}
+
+function applyColorsFromJSON() {
+    for (var i = 1; i <= 5; i++) {
+        var colorPicker = document.getElementById("color-picker" + i);
+        colorPicker.value = "#000000";
+        selectedColors[i - 1] = "#000000";
+    }
+
+    if (animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+            if (layer.nm === "palette" && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text")) && effect.ef && colorPicker) {
+                            if (effect.nm == "color" + i + "_text") {
+                                colorPicker.style.border = '1px dashed black';
+                            }
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var colorValue = rgbToHex(
+                                        Math.round(subEffect.v.k[0] * 255),
+                                        Math.round(subEffect.v.k[1] * 255),
+                                        Math.round(subEffect.v.k[2] * 255)
+                                    );
+                                    colorPicker.value = colorValue;
+                                    selectedColors[i - 1] = colorValue;
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "palette" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text")) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var colorValue = rgbToHex(
+                                        Math.round(subEffect.v.k[0] * 255),
+                                        Math.round(subEffect.v.k[1] * 255),
+                                        Math.round(subEffect.v.k[2] * 255)
+                                    );
+                                    colorPicker.value = colorValue;
+                                    selectedColors[i - 1] = colorValue;
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            });
+
+      
+        }
+    });
+}
+
+    if (animData.layers) {
+            animData.layers.forEach(function (layer) {
+                if (layer.nm === "control_panel" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "Panel_X" && effect.ef) {
+                            effect.ef.forEach(function (panelXEffect) {
+                                if (panelXEffect.nm === "Slider" && panelXEffect.v) {
+                                    document.getElementById("panelX").value = panelXEffect.v.k || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Panel_Y" && effect.ef) {
+                            effect.ef.forEach(function (panelYEffect) {
+                                if (panelYEffect.nm === "Slider" && panelYEffect.v) {
+                                    document.getElementById("panelY").value = panelYEffect.v.k || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Linespacing" && effect.ef) {
+                            effect.ef.forEach(function (linespacingEffect) {
+                                if (linespacingEffect.nm === "Slider" && linespacingEffect.v) {
+                                    document.getElementById("linespacing").value = linespacingEffect.v.k || 0;
+                                    document.getElementById("linespacing").style.display = "block";
+                                    document.getElementById("spacing").style.display = "block";
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_W" && effect.ef) {
+                            effect.ef.forEach(function (MargeWEffect) {
+                                if (MargeWEffect.nm === "Slider" && MargeWEffect.v) {
+                                    document.getElementById("marge_w").value = MargeWEffect.v.k || 0;
+                                    document.getElementById("marge_w").style.display = "block";
+                                    document.getElementById("marge").style.display = "block";
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_H" && effect.ef) {
+                            effect.ef.forEach(function (MargeHEffect) {
+                                if (MargeHEffect.nm === "Slider" && MargeHEffect.v) {
+                                    document.getElementById("marge_h").value = MargeHEffect.v.k || 0;
+                                    document.getElementById("marge_h").style.display = "block";
+                                    document.getElementById("marge").style.display = "block";
+                                }
+                            });
+                        }
+                    });
+                }
+
+                if (layer.nm === "scale" && layer.ks && layer.ks.s) {
+                    document.getElementById("scale").value = layer.ks.s.k[0] || 100;
+                }
+            });
+        }
+
+        if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "control_panel" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "control_panel" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "Panel_X" && effect.ef) {
+                            effect.ef.forEach(function (panelXEffect) {
+                                if (panelXEffect.nm === "Slider" && panelXEffect.v) {
+                                    document.getElementById("panelX").value = panelXEffect.v.k || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Panel_Y" && effect.ef) {
+                            effect.ef.forEach(function (panelYEffect) {
+                                if (panelYEffect.nm === "Slider" && panelYEffect.v) {
+                                    document.getElementById("panelY").value = panelYEffect.v.k || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Linespacing" && effect.ef) {
+                            effect.ef.forEach(function (linespacingEffect) {
+                                if (linespacingEffect.nm === "Slider" && linespacingEffect.v) {
+                                    document.getElementById("linespacing").value = linespacingEffect.v.k || 0;
+                                    document.getElementById("linespacing").style.display = "block";
+                                    document.getElementById("spacing").style.display = "block";
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_W" && effect.ef) {
+                            effect.ef.forEach(function (MargeWEffect) {
+                                if (MargeWEffect.nm === "Slider" && MargeWEffect.v) {
+                                    document.getElementById("marge_w").value = MargeWEffect.v.k || 0;
+                                    document.getElementById("marge_w").style.display = "block";
+                                    document.getElementById("marge").style.display = "block";
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_H" && effect.ef) {
+                            effect.ef.forEach(function (MargeHEffect) {
+                                if (MargeHEffect.nm === "Slider" && MargeHEffect.v) {
+                                    document.getElementById("marge_h").value = MargeHEffect.v.k || 0;
+                                    document.getElementById("marge_h").style.display = "block";
+                                    document.getElementById("marge").style.display = "block";
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "scale" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "scale" && layer.ks && layer.ks.s) {
+                    document.getElementById("scale").value = layer.ks.s.k[0] || 100;
+                }
+            });
+
+      
+        }
+    });
+}
+}
+
+function DetectColorText() {
+    for (var i = 1; i <= 2; i++) {
+        var colorPicker = document.getElementById("color-picker-text" + i);
+        var textPalette = document.getElementById("TextPalette" +i);
+        textPalette.style.display = "none";
+        colorPicker.value = "#000000";
+        selectedColors[i - 1] = "#000000"; 
+        colorPicker.style.display = "none"; 
+
+        if (animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+                if (layer.nm === "text"+i && layer.t.a) {
+                layer.t.a.forEach(function (effect) {
+                    if (effect.nm === "Color_Palette") {
+                        colorPicker.style.display = "block";
+                        colorPicker.disabled = false;
+                        }else{
+                            colorPicker.style.display = "none"; 
+                            colorPicker.disabled = false;
+                        }
+                });
+            }
+        });
+    }
+    
+    }
+}
+
+let Alignement;
+
+function DetectAlign() {
+className = "ButtonOn";
+var alignLeftButton = document.querySelector('.Alignment button:nth-child(1)');
+var alignCenterButton = document.querySelector('.Alignment button:nth-child(2)');
+var alignRightButton = document.querySelector('.Alignment button:nth-child(3)');
+document.querySelectorAll('.Alignment button').forEach(function(btn) {
+            btn.classList.remove(className);
+        });
+
+    if (animData && animData.layers) {
+            animData.layers.forEach(function (layer) {
+                if (layer.nm === "text1" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "T_Alignment" && effect.ef) {
+                            effect.ef.forEach(function (AlignEffect) {
+                                if (AlignEffect.nm === "Slider" && AlignEffect.v) {
+                                    if(AlignEffect.v.k == 0){
+                                        alignLeftButton.classList.add(className);
+                                        Alignement = 0;
+                                    }
+                                    if(AlignEffect.v.k == 1){
+                                        alignRightButton.classList.add(className);
+                                        Alignement = 1;
+                                    }
+                                    if(AlignEffect.v.k == 2){
+                                        alignCenterButton.classList.add(className);
+                                        Alignement = 2;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "text1" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "text1" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "T_Alignment" && effect.ef) {
+                            effect.ef.forEach(function (AlignEffect) {
+                                if (AlignEffect.nm === "Slider" && AlignEffect.v) {
+                                    if(AlignEffect.v.k == 0){
+                                        alignLeftButton.classList.add(className);
+                                    }
+                                    if(AlignEffect.v.k == 1){
+                                        alignRightButton.classList.add(className);
+                                    }
+                                    if(AlignEffect.v.k == 2){
+                                        alignCenterButton.classList.add(className);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+      
+        }
+    });
+}
+}
+
+function getBoundingBoxDiv() {
+    const boundingBoxDiv = document.querySelector(".bounding-box");
+    if (boundingBoxDiv) {
+        return boundingBoxDiv;
+    } else {
+        return null;
+    }
+}
+
+
+let previousBoundingBox = null;
+let deltaX = 0;
+let deltaY = 0;
+var fiveButton = document.querySelectorAll('.res-select button')[4];
+function ToggleHandle() {
+    if( getBoundingBoxDiv() != null){
+        fiveButton.classList.remove('ButtonOn');
+        getBoundingBoxDiv().remove();
+    }else{
+    fiveButton.classList.add('ButtonOn');
+    animationInstance.goToAndStop(freeze, true);
+    spanElement.textContent = 'play_arrow';  
+    DetectAlign();
+    const svg = document.querySelector("#animation-container svg");
+    const playerDiv = document.querySelector(".player");
+    const animationContainerDiv = document.getElementById("animation-container");
+
+    if (svg && playerDiv && animationContainerDiv) {
+
+        const firstGElement = svg.children[1];
+
+        if (firstGElement) {
+
+            const modifiedElements = [];
+
+            const hideIgnoreLayerElements = (element) => {
+                for (let child of element.children) {
+                    if (child.classList.contains("ignore-layer")) {
+                        modifiedElements.push({
+                            element: child,
+                            originalDisplay: child.style.display,
+                        });
+                        child.style.display = "none";
+                    }
+                    hideIgnoreLayerElements(child);
+                }
+            };
+
+            hideIgnoreLayerElements(svg);
+
+            const bbox = firstGElement.getBoundingClientRect();
+
+            const panelX = document.getElementById("panelX");
+            let x = 0;
+            if (panelX) {
+                x = panelX.value/2
+            }
+            const panelY = document.getElementById("panelY");
+            let y = 0;
+            if (panelX) {
+                y = panelY.value/2
+            }
+
+            if (Alignement == 0) {
+                deltaX = bbox.width / 2 +x/2;
+                deltaY = y/2;
+            } else if (Alignement == 1) {
+                deltaX = bbox.width / -2 +x/2;
+                deltaY = y/2;
+            } else if (Alignement == 2) {
+                deltaX = x/2;
+                deltaY = y/2;
+            }
+            
+            const boundingBoxDiv = document.createElement("div");
+            boundingBoxDiv.classList.add("bounding-box");
+            boundingBoxDiv.style.width = `${bbox.width}px`;
+            boundingBoxDiv.style.height = `${bbox.height}px`;
+
+            boundingBoxDiv.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+            if (previousBoundingBox && previousBoundingBox.parentNode === animationContainerDiv) {
+                animationContainerDiv.removeChild(previousBoundingBox);
+            }
+
+            animationContainerDiv.appendChild(boundingBoxDiv);
+
+            for (let { element, originalDisplay } of modifiedElements) {
+                element.style.display = originalDisplay;
+            }
+
+            previousBoundingBox = boundingBoxDiv;
+
+        } else {
+            console.warn("Aucune balise <g> trouvée dans le SVG.");
+        }
+    } else {
+        console.warn("SVG, playerDiv ou animationContainerDiv introuvable.");
+    }
+    }
+}
+
+
+
+
+function DetectFormat() {
+    className = "ButtonOn";
+var buttons = document.querySelectorAll('.res-select button');
+var HorButton = document.querySelector('.res-select button:nth-child(1)');
+var CarButton = document.querySelector('.res-select button:nth-child(2)');
+var VerButton = document.querySelector('.res-select button:nth-child(3)');
+for (var i = 0; i < 3; i++) {
+    buttons[i].classList.remove(className);
+}
+
+    if (animData) {
+        if(animData.w == 1920 && animData.h == 1080){
+            HorButton.classList.add(className);
+        }
+        if(animData.w == 1080 && animData.h == 1080){
+            CarButton.classList.add(className);
+        }
+        if(animData.w == 1080 && animData.h == 1920){
+            VerButton.classList.add(className);
+        }
+        }
+}
+
+
+
+function applyTextFromJSON() {
+        var CtrlTxt = document.querySelector('.ControlText');
+
+        if (animData.layers) {
+            var textLayers = animData.layers.find(function (layer) {
+                return layer.nm === "text1" && layer.ks && layer.ks.s;
+            });
+        
+            if (textLayers) {
+            textArea1 .value = textLayers.t.d.k[0].s.t;
+            textArea1 .style.display = "block";
+            CtrlTxt .style.display = "flex";
+            }else {
+                if (animData.assets[0] && animData.assets[0].layers) {
+            var textLayersAsset = animData.assets[0].layers.find(function (layer) {
+                return layer.nm === "text1" && layer.t && layer.t.d;
+            });
+
+            if (textLayersAsset) {
+            textArea1 .value = textLayersAsset.t.d.k[0].s.t;
+            textArea1 .style.display = "block";
+            CtrlTxt .style.display = "flex";
+            }else {
+
+            textArea1 .style.display = "none";
+            CtrlTxt .style.display = "none";
+            }
+            
+        }else{
+            textArea1 .style.display = "none";
+            CtrlTxt .style.display = "none";
+        }
+            }
+            
+        }
+
+
+
+
+        if (animData.layers) {
+            var textLayers = animData.layers.find(function (layer) {
+                return layer.nm === "text2" && layer.t && layer.t.d;
+            });
+        
+            if (textLayers) {
+            textArea2 .value = textLayers.t.d.k[0].s.t;
+            textArea2 .style.display = "block";
+            }else {
+                if (animData.assets[0] && animData.assets[0].layers) {
+            var textLayersAsset = animData.assets[0].layers.find(function (layer) {
+                return layer.nm === "text2" && layer.t && layer.t.d;
+            });
+
+            if (textLayersAsset) {
+            textArea2 .value = textLayersAsset.t.d.k[0].s.t;
+            textArea2 .style.display = "block";
+            }else {
+
+            textArea2 .style.display = "none";
+            }
+            
+        }else{
+            textArea2 .style.display = "none";
+        }
+            }
+            
+        }
+
+
+        
+    }
+
+    function applySizeFromJSON() {
+        if (animData.layers) {
+            var textLayers = animData.layers.find(function (layer) {
+                return layer.nm === "text1" && layer.ks && layer.ks.s;
+            });
+        
+            if (textLayers) {
+                fontSizeInput1 .value = textLayers.ks.s.k[0];
+            fontSizeInput1 .style.display = "block";
+            }else {
+                if (animData.assets[0] && animData.assets[0].layers) {
+            var textLayersAsset = animData.assets[0].layers.find(function (layer) {
+                return layer.nm === "text1" && layer.t && layer.t.d;
+            });
+
+            if (textLayersAsset) {
+                fontSizeInput1 .value = textLayersAsset.ks.s.k[0];
+            fontSizeInput1 .style.display = "block";
+            }else {
+
+            fontSizeInput1 .style.display = "none";
+            }
+            
+        }else{
+            fontSizeInput1 .style.display = "none";
+        }
+            }
+            
+        }
+
+        if (animData.layers) {
+            var textLayers = animData.layers.find(function (layer) {
+                return layer.nm === "text2" && layer.ks && layer.ks.s;
+            });
+        
+            if (textLayers) {
+                fontSizeInput2 .value = textLayers.ks.s.k[0];
+            fontSizeInput2 .style.display = "block";
+            }else {
+                if (animData.assets[0] && animData.assets[0].layers) {
+            var textLayersAsset = animData.assets[0].layers.find(function (layer) {
+                return layer.nm === "text2" && layer.t && layer.t.d;
+            });
+
+            if (textLayersAsset) {
+                fontSizeInput1 .value = textLayersAsset.ks.s.k[0];
+            fontSizeInput2 .style.display = "block";
+            }else {
+
+            fontSizeInput2 .style.display = "none";
+            }
+            
+        }else{
+            fontSizeInput2 .style.display = "none"; 
+        }
+            }
+            
+        }
+
+    }
+    
+
+function updatePanel(){
+
+            if (animData.layers) {
+            animData.layers.forEach(function (layer) {
+
+                if (layer.nm === "control_panel" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "Panel_X" && effect.ef) {
+                            effect.ef.forEach(function (panelXEffect) {
+                                if (panelXEffect.nm === "Slider" && panelXEffect.v) {
+                                    panelXEffect.v.k = parseFloat(document.getElementById("panelX").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Panel_Y" && effect.ef) {
+                            effect.ef.forEach(function (panelYEffect) {
+                                if (panelYEffect.nm === "Slider" && panelYEffect.v) {
+                                    panelYEffect.v.k = parseFloat(document.getElementById("panelY").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Linespacing" && effect.ef) {
+                            effect.ef.forEach(function (linespacingEffect) {
+                                if (linespacingEffect.nm === "Slider" && linespacingEffect.v) {
+                                    linespacingEffect.v.k = parseFloat(document.getElementById("linespacing").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_W" && effect.ef) {
+                            effect.ef.forEach(function (MargeWEffect) {
+                                if (MargeWEffect.nm === "Slider" && MargeWEffect.v) {
+                                    MargeWEffect.v.k = parseFloat(document.getElementById("marge_w").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_H" && effect.ef) {
+                            effect.ef.forEach(function (MargeHEffect) {
+                                if (MargeHEffect.nm === "Slider" && MargeHEffect.v) {
+                                    MargeHEffect.v.k = parseFloat(document.getElementById("marge_h").value) || 0;
+                                }
+                            });
+                        }
+                    });
+                }
+
+
+                if (layer.nm === "scale" && layer.ks && layer.ks.s) {
+                    layer.ks.s.k[0] = parseFloat(document.getElementById("scale").value) || 100;
+                    layer.ks.s.k[1] = parseFloat(document.getElementById("scale").value) || 100;
+                }
+            });
+
+        }
+
+        if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "control_panel" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "control_panel" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "Panel_X" && effect.ef) {
+                            effect.ef.forEach(function (panelXEffect) {
+                                if (panelXEffect.nm === "Slider" && panelXEffect.v) {
+                                    panelXEffect.v.k = parseFloat(document.getElementById("panelX").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Panel_Y" && effect.ef) {
+                            effect.ef.forEach(function (panelYEffect) {
+                                if (panelYEffect.nm === "Slider" && panelYEffect.v) {
+                                    panelYEffect.v.k = parseFloat(document.getElementById("panelY").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "Linespacing" && effect.ef) {
+                            effect.ef.forEach(function (linespacingEffect) {
+                                if (linespacingEffect.nm === "Slider" && linespacingEffect.v) {
+                                    linespacingEffect.v.k = parseFloat(document.getElementById("linespacing").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_W" && effect.ef) {
+                            effect.ef.forEach(function (MargeWEffect) {
+                                if (MargeWEffect.nm === "Slider" && MargeWEffect.v) {
+                                    MargeWEffect.v.k = parseFloat(document.getElementById("marge_w").value) || 0;
+                                }
+                            });
+                        }
+
+                        if (effect.nm === "B_Marge_H" && effect.ef) {
+                            effect.ef.forEach(function (MargeHEffect) {
+                                if (MargeHEffect.nm === "Slider" && MargeHEffect.v) {
+                                    MargeHEffect.v.k = parseFloat(document.getElementById("marge_h").value) || 0;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "scale" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "scale" && layer.ks && layer.ks.s) {
+                    layer.ks.s.k[0] = parseFloat(document.getElementById("scale").value) || 100;
+                    layer.ks.s.k[1] = parseFloat(document.getElementById("scale").value) || 100;
+                }
+            });
+
+      
+        }
+    });
+}
+        currentFrame = animationInstance.currentFrame;
+        lottie.destroy();
+        window.dispatchEvent(animationDestroyedEvent);
+        playLottieAnimation(animData);
+        animationInstance.goToAndStop(currentFrame, true);
+        spanElement.textContent = 'play_arrow';
+}
+
+
+function updateColors() {
+    if (animationInstance && animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+            if (layer.nm === "palette" && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text")) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    subEffect.v.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "palette" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (((effect.nm === "color" + i) || (effect.nm === "color" + i + "_text")) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    subEffect.v.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            });
+
+      
+        }
+    });
+}
+        currentFrame = animationInstance.currentFrame;
+        lottie.destroy();
+        window.dispatchEvent(animationDestroyedEvent);
+        playLottieAnimation(animData);
+        animationInstance.goToAndStop(currentFrame, true);
+        spanElement.textContent = 'play_arrow';
+}
+
+function updateGradients() {
+
+var colorValues1 = [];
+var colorValues2 = [];
+
+if (animationInstance && animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+            if (layer.nm.startsWith("gradient") && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var endsWith = i.toString();
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (effect.nm.startsWith("gradient1_color") && effect.nm.endsWith(endsWith) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var hex = colorPicker.value;
+                                    var r = parseInt(hex.substring(1, 3), 16) / 255;
+                                    var g = parseInt(hex.substring(3, 5), 16) / 255;
+                                    var b = parseInt(hex.substring(5, 7), 16) / 255;
+                                    colorValues1.push(r, g, b);
+                                }
+                            });
+                        }
+
+                        if (effect.nm.startsWith("gradient2_color") && effect.nm.endsWith(endsWith) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var hex = colorPicker.value;
+                                    var r = parseInt(hex.substring(1, 3), 16) / 255;
+                                    var g = parseInt(hex.substring(3, 5), 16) / 255;
+                                    var b = parseInt(hex.substring(5, 7), 16) / 255;
+                                    colorValues2.push(r, g, b);
+                                }
+                            });
+                        }
+
+                        
+                    }
+                });
+
+            }
+            if (layer.nm.startsWith("gradient")  && layer.shapes) {
+                layer.shapes.forEach(function (shape) {
+                        if (shape.ty === "gr" && shape.it) {
+                            shape.it.forEach(function (item) {
+                                if (item.ty === "gf" && item.g && item.g.k && item.g.k.k) {
+                                    if (item.g.k.k.length >= 12) {
+                                        item.g.k.k[0] = 0;
+                                        j=0;
+                                        for (var i = 1; i < 4; i++) {
+                                            item.g.k.k[i] = colorValues1[j];
+                                            j+=1;
+                                        }
+                                        item.g.k.k[4] = 0.5;
+                                        j=0;
+                                        for (var i = 5; i < 8; i++) {
+                                            item.g.k.k[i] = (colorValues1[j] + colorValues2[j])/2;
+                                            j+=1;
+                                        }
+                                        item.g.k.k[8] = 1;
+                                        j=0;
+                                        for (var i = 9; i < 12; i++) {
+                                            item.g.k.k[i] = colorValues2[j];
+                                            j+=1;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                
+            }
+        });
+    }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm.startsWith("gradient") && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm.startsWith("gradient") && layer.ef) {
+                layer.ef.forEach(function (effect) {
+                    for (var i = 1; i <= 5; i++) {
+                        var endsWith = i.toString();
+                        var colorPicker = document.getElementById("color-picker" + i);
+                        if (effect.nm.startsWith("gradient1_color") && effect.nm.endsWith(endsWith) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var hex = colorPicker.value;
+                                    var r = parseInt(hex.substring(1, 3), 16) / 255;
+                                    var g = parseInt(hex.substring(3, 5), 16) / 255;
+                                    var b = parseInt(hex.substring(5, 7), 16) / 255;
+                                    colorValues1.push(r, g, b);
+                                }
+                            });
+                        }
+
+                        if (effect.nm.startsWith("gradient2_color") && effect.nm.endsWith(endsWith) && effect.ef && colorPicker) {
+                            effect.ef.forEach(function (subEffect) {
+                                if (subEffect.nm === "Color" && subEffect.v) {
+                                    var hex = colorPicker.value;
+                                    var r = parseInt(hex.substring(1, 3), 16) / 255;
+                                    var g = parseInt(hex.substring(3, 5), 16) / 255;
+                                    var b = parseInt(hex.substring(5, 7), 16) / 255;
+                                    colorValues2.push(r, g, b);
+                                }
+                            });
+                        }
+
+                        
+                    }
+                });
+
+            }
+            if (layer.nm.startsWith("gradient")  && layer.shapes) {
+                layer.shapes.forEach(function (shape) {
+                        if (shape.ty === "gr" && shape.it) {
+                            shape.it.forEach(function (item) {
+                                if (item.ty === "gf" && item.g && item.g.k && item.g.k.k) {
+                                    if (item.g.k.k.length >= 12) {
+                                        item.g.k.k[0] = 0;
+                                        j=0;
+                                        for (var i = 1; i < 4; i++) {
+                                            item.g.k.k[i] = colorValues1[j];
+                                            j+=1;
+                                        }
+                                        item.g.k.k[4] = 0.5;
+                                        j=0;
+                                        for (var i = 5; i < 8; i++) {
+                                            var t = (i - 4) / 4;
+                                            item.g.k.k[i] = colorValues1[j] * (1 - t) + colorValues2[j] * t;
+                                            j+=1;
+                                        }
+                                        item.g.k.k[8] = 1;
+                                        j=0;
+                                        for (var i = 9; i < 12; i++) {
+                                            item.g.k.k[i] = colorValues2[j];
+                                            j+=1;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                
+            }
+            });
+
+      
+        }
+    });
+}
+        currentFrame = animationInstance.currentFrame;
+        lottie.destroy();
+        window.dispatchEvent(animationDestroyedEvent);
+        playLottieAnimation(animData);
+        animationInstance.goToAndStop(currentFrame, true);
+        spanElement.textContent = 'play_arrow';
+}
+
+function UpdateColorText(Picker, Palette){
+        var colorPicker = document.getElementById("color-picker-text" + (Picker+1));
+        var textPalette = document.getElementById("TextPalette" + (Picker+1));
+        if(Palette == 0){
+            textPalette.style.display = "block";
+        }else{
+            textPalette.style.display = "none";
+        }
+        
+
+        if (animData && animData.layers) {
+        animData.layers.forEach(function (layer) {
+                if (layer.nm === "text"+(Picker+1) && layer.t.a) {
+                layer.t.a.forEach(function (effect) {
+                    if(Palette == 1){
+                        if (effect.nm === "Color_Text" && effect.a.fc && effect.a.fc.k) {
+                        effect.a.fc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Text" && effect.a.sc && effect.a.sc.k) {
+                        effect.a.sc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Palette" && effect.s.e.k) {
+                            effect.s.e.k = 99.999;
+                        }
+                    }else{
+                        if (effect.nm === "Color_Text" && effect.a.fc && effect.a.fc.k) {
+                        effect.a.fc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Text" && effect.a.sc && effect.a.sc.k) {
+                        effect.a.sc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Palette" && effect.s.e.k) {
+                            effect.s.e.k = 0.01;
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "text"+(Picker+1) && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                layer.t.a.forEach(function (effect) {
+                    if(Palette == 1){
+                        if (effect.nm === "Color_Text" && effect.a.fc && effect.a.fc.k) {
+                        effect.a.fc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Text" && effect.a.sc && effect.a.sc.k) {
+                        effect.a.sc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Palette" && effect.s.e.k) {
+                            effect.s.e.k = 99.999;
+                        }
+                    }else{
+                        if (effect.nm === "Color_Text" && effect.a.fc && effect.a.fc.k) {
+                        effect.a.fc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Text" && effect.a.sc && effect.a.sc.k) {
+                        effect.a.sc.k = [hexToRgb(colorPicker.value).r / 255, hexToRgb(colorPicker.value).g / 255, hexToRgb(colorPicker.value).b / 255, 1];
+                        }
+                        if (effect.nm === "Color_Palette" && effect.s.e.k) {
+                            effect.s.e.k = 0.01;
+                        }
+                    }
+                });
+            });
+
+      
+        }
+    });
+}
+        currentFrame = animationInstance.currentFrame;
+        lottie.destroy();
+        window.dispatchEvent(animationDestroyedEvent);
+        playLottieAnimation(animData);
+        animationInstance.goToAndStop(currentFrame, true);
+        spanElement.textContent = 'play_arrow';
+}
+
+function updateTextForLayer(layerName, textareaValue) {
+    if (animationInstance && animData) {
+        if (animData.layers) {
+            var textLayers = animData.layers.filter(function (layer) {
+                return layer.nm === layerName && layer.ks && layer.ks.s;
+            });
+
+            textLayers.forEach(function (textLayer) {
+                textLayer.t.d.k[0].s.t = textareaValue.replace(/\n/g, "\r");
+            });
+        }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) {
+            var textLayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === layerName && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            textLayersAsset.forEach(function (textLayerAsset) {
+                textLayerAsset.t.d.k[0].s.t = textareaValue.replace(/\n/g, "\r");
+            });
+        }
+    });
+}
+
+        
+    }
+}
+
+function updateText() {
+updateTextForLayer("text1", textArea1.value);
+updateTextForLayer("text2", textArea2.value);
+        if (animationInstance && animData) {
+                currentFrame = animationInstance.currentFrame;
+                lottie.destroy();
+                window.dispatchEvent(animationDestroyedEvent);
+                playLottieAnimation(animData);
+                animationInstance.goToAndStop(currentFrame, true);
+                spanElement.textContent = 'play_arrow';
+        }
+}
+
+function FreezeFrame() {
+    if (animData.markers) {
+            animData.markers.forEach(function (marker) {
+                if (marker.cm === "freeze") {
+                    freeze = marker.tm;
+                    console.log("freeze frame : "+freeze);
+                    playLottieAnimation(animData);
+                    animationInstance.goToAndStop(freeze, true);
+                }
+            });
+        }
+}
+
+function goFreezeFrame() {
+    animationInstance.goToAndStop(freeze, true);
+    spanElement.textContent = 'play_arrow';  
+}
+
+
+function updateAllSize(layerName, textareaValue) {
+    if (animationInstance && animData) {
+        if (animData.layers) {
+            var textLayers = animData.layers.filter(function (layer) {
+                return layer.nm === layerName && layer.ks && layer.ks.s;
+            });
+
+            textLayers.forEach(function (textLayer) {
+                textLayer.ks.s.k[0] = parseFloat(textareaValue) || 100;
+                textLayer.ks.s.k[1] = parseFloat(textareaValue) || 100;
+            });
+
+            var textLayers = animData.layers.filter(function (layer) {
+                return layer.nm === layerName+"_template" && layer.ks && layer.ks.s;
+            });
+
+            textLayers.forEach(function (textLayer) {
+                textLayer.ks.s.k[0] = parseFloat(textareaValue) || 100;
+                textLayer.ks.s.k[1] = parseFloat(textareaValue) || 100;
+            });
+        }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) {
+            var textLayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === layerName && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            textLayersAsset.forEach(function (textLayerAsset) {
+                textLayerAsset.ks.s.k[0] = parseFloat(textareaValue) || 100;
+                textLayerAsset.ks.s.k[1] = parseFloat(textareaValue) || 100;
+            });
+
+            var textLayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === layerName+"_template" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            textLayersAsset.forEach(function (textLayerAsset) {
+                textLayerAsset.ks.s.k[0] = parseFloat(textareaValue) || 100;
+                textLayerAsset.ks.s.k[1] = parseFloat(textareaValue) || 100;
+            });
+        }
+    });
+}
+
+        
+    }
+}
+
+
+
+
+
+    function updateSize() {
+
+        updateAllSize("text1", fontSizeInput1.value);
+        updateAllSize("text2", fontSizeInput2.value);
+
+
+        if (animationInstance && animData) {
+
+
+                currentFrame = animationInstance.currentFrame;
+                lottie.destroy();
+                window.dispatchEvent(animationDestroyedEvent);
+                playLottieAnimation(animData);
+                animationInstance.goToAndStop(currentFrame, true);
+                spanElement.textContent = 'play_arrow';
+            
+        }
+    }
+
+    function updateAllAlign(layerName, AlignValue) {
+    if (animationInstance && animData) {
+        if (animData.layers) {
+            
+            animData.layers.forEach(function (layer) {
+                if (layer.nm === layerName && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "T_Alignment" && effect.ef) {
+                            effect.ef.forEach(function (AlignEffect) {
+                                if (AlignEffect.nm === "Slider" && AlignEffect.v) {
+                                    AlignEffect.v.k = AlignValue;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            for (var i = 0; i < animData.layers.length; i++) {
+        var currentLayer = animData.layers[i];
+        if (currentLayer.t && currentLayer.t.d && currentLayer.t.d.k && currentLayer.t.d.k[0] && currentLayer.t.d.k[0].s) {
+            currentLayer.t.d.k[0].s.j = AlignValue;
+        }
+    }
+        }
+
+    if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var textLayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === layerName && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            textLayersAsset.forEach(function (layer) {
+        if (layer.t && layer.t.d && layer.t.d.k && layer.t.d.k[0] && layer.t.d.k[0].s) {
+            layer.t.d.k[0].s.j = AlignValue;
+        }
+                if (layer.nm === layerName && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "T_Alignment" && effect.ef) {
+                            effect.ef.forEach(function (AlignEffect) {
+                                if (AlignEffect.nm === "Slider" && AlignEffect.v) {
+                                    AlignEffect.v.k = AlignValue;
+                                }
+                            });
+                        }
+                        
+                    });
+                }
+            });
+
+            var textLayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === layerName+"_template" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            textLayersAsset.forEach(function (layer) {
+        if (layer.t && layer.t.d && layer.t.d.k && layer.t.d.k[0] && layer.t.d.k[0].s) {
+            layer.t.d.k[0].s.j = AlignValue;
+        }
+            });
+      
+        }
+    });
+}
+
+        
+    }
+}
+
+    function Align(AlignValue) {
+        updateAllAlign("text1", AlignValue);
+        updateAllAlign("text2", AlignValue);
+
+
+    //     if (animationInstance && animData) {
+            
+    //             for (var i = 0; i < animData.layers.length; i++) {
+    //     var currentLayer = animData.layers[i];
+
+    //     // Vérifiez si le layer a la propriété "t" avec "d" et "k"
+    //     if (currentLayer.t && currentLayer.t.d && currentLayer.t.d.k && currentLayer.t.d.k[0] && currentLayer.t.d.k[0].s) {
+    //         // Mettez à jour la valeur de "j"
+    //         currentLayer.t.d.k[0].s.j = AlignValue;
+    //     }
+    // } }
+
+    currentFrame = animationInstance.currentFrame;
+    lottie.destroy();
+    window.dispatchEvent(animationDestroyedEvent);
+    playLottieAnimation(animData);
+    animationInstance.goToAndStop(currentFrame, true);
+    spanElement.textContent = 'play_arrow';
+}
+
+
+    function Format(FormatValue) {
+        if (animData) {
+            if(FormatValue == 0){
+                animData.w = 1920 ;
+                animData.h = 1080;
+            }
+            if(FormatValue == 1){
+                animData.w = 1080 ;
+                animData.h = 1080;
+            }
+            if(FormatValue == 2){
+                animData.w = 1080 ;
+                animData.h = 1920;
+            }
+
+            if (animData.layers) {
+            
+            animData.layers.forEach(function (layer) {
+                if (layer.nm.startsWith("Pre-comp") && layer.w && layer.h) {
+                    if(FormatValue == 0){
+                        layer.w = 1920 ;
+                        layer.h = 1080;
+            }
+            if(FormatValue == 1){
+                layer.w = 1080 ;
+                layer.h = 1080;
+            }
+            if(FormatValue == 2){
+                layer.w = 1080 ;
+                layer.h = 1920;
+            }
+                }
+            });
+        }
+
+                currentFrame = animationInstance.currentFrame;
+                lottie.destroy();
+                window.dispatchEvent(animationDestroyedEvent);
+                playLottieAnimation(animData);
+                animationInstance.goToAndStop(currentFrame, true);
+                spanElement.textContent = 'play_arrow';
+        }
+    }
+
+    //Opacité
+    document.querySelectorAll(".color-opacity-slider").forEach(function (range, index) {
+        range.addEventListener("input", function () {
+        var opacityValue = this.value;
+        if (animData && animData.layers) {
+            animData.layers.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "color_opacity" + (index + 1) && effect.ef) {
+                            effect.ef.forEach(function (opacityEffect) {
+                                if (opacityEffect.nm === "Slider" && opacityEffect.v) {
+                                    opacityEffect.v.k = parseInt(opacityValue);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        if (animData.assets && animData.assets.length > 0) {
+    animData.assets.forEach(function (asset) {
+        if (asset.layers) 
+        {
+            var LayersAsset = asset.layers.filter(function (layer) {
+                return layer.nm === "palette" && layer.ks && layer.ks.s && (layer.isAdjustment === undefined);
+            });
+
+            LayersAsset.forEach(function (layer) {
+                if (layer.nm === "palette" && layer.ef) {
+                    layer.ef.forEach(function (effect) {
+                        if (effect.nm === "color_opacity" + (index + 1) && effect.ef) {
+                            effect.ef.forEach(function (opacityEffect) {
+                                if (opacityEffect.nm === "Slider" && opacityEffect.v) {
+                                    opacityEffect.v.k = opacityValue;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+      
+        }
+    });
+}
+    setTimeout(() => {
+        updateColors();
+        updateGradients();
+        playLottieAnimation(animData);        
+    }, 150);
+
+    });
+});
+
+function playLottieAnimation(animationData) {
+    var animationContainer = document.getElementById('animation-container');
+    animationContainer.innerHTML = ''; 
+
+    animationInstance = lottie.loadAnimation({
+        container: animationContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: false,
+        animationData: animationData
+    });
+
+    
+    document.getElementById('animation-slider').max = animationInstance.totalFrames;
+    document.getElementById('animation-slider').disabled = false;
+    document.getElementById('animation-slider').value = 0;
+
+    animationInstance.addEventListener('enterFrame', function (event) {
+        document.getElementById('animation-slider').value = event.currentTime;
+        var currentFrameElement = document.getElementById('current-frame');
+        if (currentFrameElement) {
+            currentFrameElement.innerText = Math.floor(event.currentTime);
+        }
+    });
+
+    animationInstance.addEventListener('complete', function () {
+        isPaused = true;
+    });
+
+    animationInstance.addEventListener('pause', function () {
+        ToggleHandle();
+        isPaused = true;
+    });
+
+    animationInstance.addEventListener('play', function () {
+        isPaused = false;
+    });
+
+    document.getElementById('animation-slider').addEventListener('input', function () {
+        updateFrame();
+        spanElement.textContent = 'play_arrow'; 
+    });
+    
+    animationInstance.goToAndStop(currentFrame, true);
+    spanElement.textContent = 'play_arrow';
+}
+
+
+
+function togglePlay() {
+    if (spanElement.textContent.trim() === 'pause') {
+        spanElement.textContent = 'play_arrow';  
+    } else {
+        spanElement.textContent = 'pause';
+    }
+    if (animationInstance) {
+        if (animationInstance.isPaused) {
+            animationInstance.play(); 
+        } else {
+            animationInstance.pause();
+        }
+    }
+}
+
+function updateFrame() {
+    if (animationInstance) {
+        var sliderValue = document.getElementById('animation-slider').value;
+        animationInstance.goToAndStop(parseInt(sliderValue), true);
+    }
+}
+
+function hexToRgb(hex) {
+    var bigint = parseInt(hex.slice(1), 16);
+    return { r: (bigint >> 16) & 255, g: (bigint >> 8) & 255, b: bigint & 255 };
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function pauseAnimation() {
+    if (animationInstance) {
+        animationInstance.pause();
+        isPaused = true;
+    }
+}
+
+document.querySelectorAll(".color-picker").forEach(function (colorPicker, index) {
+    colorPicker.addEventListener("input", function () {
+        selectedColors[index] = colorPicker.value;
+        updateColors();
+        updateGradients();
+    });
+});
+
+document.querySelectorAll(".color-picker-text").forEach(function (colorPicker, index) {
+    colorPicker.addEventListener("input", function () {
+        selectedColors[index] = colorPicker.value;
+        UpdateColorText(index, 0);
+        var textPalette = document.getElementById("TextPalette" + (index+1));
+        textPalette.addEventListener("click", function(){
+            UpdateColorText(index, 1);
+            colorPicker.value = "#000000";
+            selectedColors[index - 1] = "#000000"; 
+         });
+    });
+});
+
+window.addEventListener("animationDestroyed", () => {
+    //ToggleHandle State
+    if( getBoundingBoxDiv() == null){
+        fiveButton.classList.remove('ButtonOn');
+    }
+});
+
+applyColorsFromJSON();
+
+    textArea1 .addEventListener("input", function () {
+        updateText();
+    });
+
+    textArea2 .addEventListener("input", function () {
+        updateText();
+    });
+
+applyTextFromJSON();
+applySizeFromJSON();
+</script>
+
+</body>
+
+</html>
